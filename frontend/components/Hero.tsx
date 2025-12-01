@@ -22,15 +22,15 @@ interface HeroProps {
 }
 
 const Hero = ({
-  heading = "A Collection of Components Built With Shadcn & Tailwind",
-  description = "Finely crafted components built with React, Tailwind and Shadcn UI. Developers can copy and paste these blocks directly into their project.",
+  heading = "AI-Powered Crop Recommendations for Modern Farmers",
+  description = "Make smarter farming decisions with KrishiSahayak. Analyze weather patterns, soil characteristics, and location data to get personalized crop recommendations that maximize yield and optimize resource efficiency.",
   button = {
-    text: "Discover all components",
-    url: "https://www.shadcnblocks.com",
+    text: "Get Started Today",
+    url: "#",
   },
   reviews = {
-    count: 200,
-    rating: 5.0,
+    count: 500,
+    rating: 4.9,
     avatars: [
       {
         src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-1.webp",
@@ -57,7 +57,7 @@ const Hero = ({
 }: HeroProps) => {
   return (
     <section className="py-32">
-      <div className="container text-center">
+      <div className="container text-center mx-auto">
         <div className="mx-auto flex max-w-5xl flex-col gap-6">
           <h1 className="text-3xl font-semibold lg:text-6xl">{heading}</h1>
           <p className="text-muted-foreground text-balance lg:text-lg">

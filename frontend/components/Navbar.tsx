@@ -1,6 +1,6 @@
 "use client";
 
-import { Book, Menu, Sunset, Trees, Zap } from "lucide-react";
+import { Book, Cloud, Menu, Palmtree, Sunset, Trees, Zap } from "lucide-react";
 
 import {
   Accordion,
@@ -36,7 +36,7 @@ interface MenuItem {
 interface NavbarProps {
   logo?: {
     url: string;
-    src: string;
+    icon: React.ReactNode;
     alt: string;
     title: string;
   };
@@ -55,40 +55,39 @@ interface NavbarProps {
 
 const Navbar = ({
   logo = {
-    url: "https://www.shadcnblocks.com",
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg",
-    alt: "logo",
-    title: "Shadcnblocks.com",
+    url: "http://localhost:3000",
+    icon: <Palmtree className=" text-primary" />,
+    alt: "KrishiSahayak",
+    title: "KrishiSahayak",
   },
   menu = [
     { title: "Home", url: "#" },
     {
-      title: "Products",
+      title: "Features",
       url: "#",
       items: [
         {
-          title: "Blog",
-          description: "The latest industry news, updates, and info",
-          icon: <Book className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Company",
-          description: "Our mission is to innovate and empower the world",
+          title: "Crop Recommendations",
+          description: "AI-powered crop suggestions based on your conditions",
           icon: <Trees className="size-5 shrink-0" />,
           url: "#",
         },
         {
-          title: "Careers",
-          description: "Browse job listing and discover our workspace",
-          icon: <Sunset className="size-5 shrink-0" />,
+          title: "Weather Analysis",
+          description: "Real-time weather data for better decision making",
+          icon: <Cloud className="size-5 shrink-0" />,
           url: "#",
         },
         {
-          title: "Support",
-          description:
-            "Get in touch with our support team or visit our community forums",
+          title: "Soil Information",
+          description: "Detailed soil characteristics and recommendations",
           icon: <Zap className="size-5 shrink-0" />,
+          url: "#",
+        },
+        {
+          title: "Location Insights",
+          description: "Geolocation-based agricultural guidance",
+          icon: <Book className="size-5 shrink-0" />,
           url: "#",
         },
       ],
@@ -98,27 +97,27 @@ const Navbar = ({
       url: "#",
       items: [
         {
-          title: "Help Center",
-          description: "Get all the answers you need right here",
-          icon: <Zap className="size-5 shrink-0" />,
+          title: "Documentation",
+          description: "Learn how to use KrishiSahayak effectively",
+          icon: <Book className="size-5 shrink-0" />,
           url: "#",
         },
         {
-          title: "Contact Us",
-          description: "We are here to help you with any questions you have",
+          title: "Blog",
+          description: "Agriculture tips, guides, and industry insights",
           icon: <Sunset className="size-5 shrink-0" />,
           url: "#",
         },
         {
-          title: "Status",
-          description: "Check the current status of our services and APIs",
-          icon: <Trees className="size-5 shrink-0" />,
+          title: "Support",
+          description: "Get help from our farming experts",
+          icon: <Zap className="size-5 shrink-0" />,
           url: "#",
         },
         {
-          title: "Terms of Service",
-          description: "Our terms and conditions for using our services",
-          icon: <Book className="size-5 shrink-0" />,
+          title: "About Us",
+          description: "Learn our mission to empower farmers",
+          icon: <Trees className="size-5 shrink-0" />,
           url: "#",
         },
       ],
@@ -127,29 +126,21 @@ const Navbar = ({
       title: "Pricing",
       url: "#",
     },
-    {
-      title: "Blog",
-      url: "#",
-    },
   ],
   auth = {
     login: { title: "Login", url: "#" },
-    signup: { title: "Sign up", url: "#" },
+    signup: { title: "Get Started", url: "#" },
   },
 }: NavbarProps) => {
   return (
     <section className="py-4">
-      <div className="container">
+      <div className="container mx-auto">
         {/* Desktop Menu */}
         <nav className="hidden items-center justify-between lg:flex">
           <div className="flex items-center gap-6">
             {/* Logo */}
             <a href={logo.url} className="flex items-center gap-2">
-              <img
-                src={logo.src}
-                className="max-h-8 dark:invert"
-                alt={logo.alt}
-              />
+              <span>{logo.icon}</span>
               <span className="text-lg font-semibold tracking-tighter">
                 {logo.title}
               </span>
@@ -177,11 +168,7 @@ const Navbar = ({
           <div className="flex items-center justify-between">
             {/* Logo */}
             <a href={logo.url} className="flex items-center gap-2">
-              <img
-                src={logo.src}
-                className="max-h-8 dark:invert"
-                alt={logo.alt}
-              />
+              {logo.icon}
             </a>
             <Sheet>
               <SheetTrigger asChild>
@@ -193,11 +180,10 @@ const Navbar = ({
                 <SheetHeader>
                   <SheetTitle>
                     <a href={logo.url} className="flex items-center gap-2">
-                      <img
-                        src={logo.src}
-                        className="max-h-8 dark:invert"
-                        alt={logo.alt}
-                      />
+                      <span>{logo.icon}</span>
+                      <span className="text-lg font-semibold tracking-tighter">
+                        {logo.title}
+                      </span>
                     </a>
                   </SheetTitle>
                 </SheetHeader>
@@ -298,4 +284,4 @@ const SubMenuLink = ({ item }: { item: MenuItem }) => {
   );
 };
 
-export { Navbar1 };
+export { Navbar };
