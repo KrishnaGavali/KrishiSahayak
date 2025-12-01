@@ -10,6 +10,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors());
+app.use(express.json());
 
 const port = "5000";
 const aiService = new googleAI();
@@ -20,11 +21,10 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.post("/chat", async (req: Request, res: Response) => {
+  const messages = req.body.messages;
+
   try {
-    await aiService.chat(
-      "Invent a new holiday and describe its traditions.",
-      res
-    );
+    await aiService.chat(messages, res);
   } catch (error) {
     res.status(500).json({ error: "Failed to process chat request" });
   }

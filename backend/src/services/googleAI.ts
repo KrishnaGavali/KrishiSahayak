@@ -1,5 +1,6 @@
 import model from "../providers/googleAIModel";
-import type { LanguageModel } from "ai";
+import type { LanguageModel, UIMessage } from "ai";
+import { convertToModelMessages } from "ai";
 import { streamText } from "ai";
 import type { Response } from "express";
 
@@ -14,14 +15,14 @@ class googleAI {
     return this.model;
   }
 
-  async chat(prompt: string, res: Response) {
+  async chat(prompt: UIMessage[], res: Response) {
     if (!this.model) {
       throw new Error("Model not initialized");
     }
 
     const result = streamText({
       model: this.model,
-      prompt,
+      prompt: convertToModelMessages(prompt),
     });
 
     result.pipeUIMessageStreamToResponse(res);
