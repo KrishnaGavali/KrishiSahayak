@@ -1,7 +1,6 @@
 "use client";
 
-import { Book, Cloud, Menu, Palmtree, Sunset, Trees, Zap } from "lucide-react";
-
+import { BotIcon, Menu, Palmtree, Trees } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -61,7 +60,7 @@ const Navbar = ({
     title: "KrishiSahayak",
   },
   menu = [
-    { title: "Home", url: "#" },
+    { title: "Home", url: "http://10.31.27.37:3000" },
     {
       title: "Features",
       url: "#",
@@ -73,58 +72,12 @@ const Navbar = ({
           url: "#",
         },
         {
-          title: "Weather Analysis",
-          description: "Real-time weather data for better decision making",
-          icon: <Cloud className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Soil Information",
-          description: "Detailed soil characteristics and recommendations",
-          icon: <Zap className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Location Insights",
-          description: "Geolocation-based agricultural guidance",
-          icon: <Book className="size-5 shrink-0" />,
-          url: "#",
+          title: "Farm Assistant Chatbot",
+          description: "Get instant answers to your farming questions",
+          icon: <BotIcon className="size-5 shrink-0" />,
+          url: "http://10.31.27.37:3000/chat",
         },
       ],
-    },
-    {
-      title: "Resources",
-      url: "#",
-      items: [
-        {
-          title: "Documentation",
-          description: "Learn how to use KrishiSahayak effectively",
-          icon: <Book className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Blog",
-          description: "Agriculture tips, guides, and industry insights",
-          icon: <Sunset className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Support",
-          description: "Get help from our farming experts",
-          icon: <Zap className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "About Us",
-          description: "Learn our mission to empower farmers",
-          icon: <Trees className="size-5 shrink-0" />,
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Pricing",
-      url: "#",
     },
   ],
   auth = {

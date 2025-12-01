@@ -5,7 +5,6 @@ import { Hero } from "@/components/Hero";
 const HomePage = () => {
   return (
     <div>
-      <Navbar />
       <Hero />
     </div>
   );

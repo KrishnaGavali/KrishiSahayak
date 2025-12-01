@@ -1,10 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  ButtonGroup,
-  ButtonGroupText,
-} from "@/components/ui/button-group";
+import { ButtonGroup, ButtonGroupText } from "@/components/ui/button-group";
 import {
   Tooltip,
   TooltipContent,
@@ -30,8 +27,10 @@ export type MessageProps = HTMLAttributes<HTMLDivElement> & {
 export const Message = ({ className, from, ...props }: MessageProps) => (
   <div
     className={cn(
-      "group flex w-full max-w-[80%] flex-col gap-2",
-      from === "user" ? "is-user ml-auto justify-end" : "is-assistant",
+      "group flex w-full max-w-[80%] flex-col gap-2 text-primary-foreground",
+      from === "user"
+        ? "is-user ml-auto justify-end"
+        : "is-assistant text-primary-foreground",
       className
     )}
     {...props}

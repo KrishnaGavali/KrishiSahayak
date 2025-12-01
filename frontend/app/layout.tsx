@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Comfortaa, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Chatbot from "@/components/Chatbot/Chatbot";
+import { Navbar } from "@/components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,8 +33,8 @@ export default function RootLayout({
   return (
     <html lang="en" className=" p-5">
       <body className={`${comfortaa.className} antialiased`}>
+        <Navbar />
         {children}
-        <Chatbot />
       </body>
     </html>
   );
