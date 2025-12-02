@@ -22,7 +22,7 @@ const PromptInputBox = ({ sendMessage, status }: PromptInputBoxProps) => {
   };
 
   return (
-    <div>
+    <div className=" m-4">
       <PromptInputComponent
         onSubmit={handleSubmit}
         className="mt-4 w-full max-w-4xl mx-auto relative"

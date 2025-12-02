@@ -31,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="px-5 py-2 min-h-screen flex flex-col">
+    <html lang="en" className="min-h-screen flex flex-col">
       <body
         className={`${comfortaa.className} antialiased flex flex-col flex-1`}
       >
