@@ -57,6 +57,7 @@ const ChatBotConversation = ({
               ))
             )}
           </ConversationContent>
+          <ConversationScrollButton />
         </Conversation>
       </div>
     </div>

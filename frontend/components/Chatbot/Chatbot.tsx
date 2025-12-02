@@ -1,6 +1,6 @@
 "use client";
 import { BotIcon } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import {
@@ -34,10 +34,26 @@ import {
 import ChatBotConversation from "./Conversation";
 import PromptInputBox from "./PromptInput";
 
+interface moreInfo {
+  weather: boolean | null;
+  location: boolean | null;
+}
+
 const Chatbot = () => {
+  const [moreInfo, setMoreInfo] = useState<moreInfo>({
+    weather: null,
+    location: null,
+  });
+
+  useEffect(() => {}, [moreInfo]);
+
+  useEffect(() => {
+    console.log("More Info changed: ", moreInfo);
+  }, [moreInfo]);
+
   const { messages, sendMessage, status } = useChat({
     transport: new DefaultChatTransport({
-      api: "http://localhost:5000/chat",
+      api: "http://192.168.0.107:5000/chat",
       body: (message: string) => ({ prompt: message }),
     }),
   });
@@ -45,7 +61,11 @@ const Chatbot = () => {
   return (
     <div className="flex flex-col flex-1">
       <ChatBotConversation messages={messages} status={status} />
-      <PromptInputBox sendMessage={sendMessage} status={status} />
+      <PromptInputBox
+        sendMessage={sendMessage}
+        status={status}
+        setMoreInfo={setMoreInfo}
+      />
     </div>
   );
 };

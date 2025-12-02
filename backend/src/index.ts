@@ -12,7 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const port = "5000";
+const port = 5000;
 const aiService = new googleAI();
 
 app.get("/", (req: Request, res: Response) => {
@@ -21,6 +21,8 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.post("/chat", async (req: Request, res: Response) => {
+  console.log("Received Body :", req.body);
+
   const messages = req.body.messages;
 
   try {
@@ -30,6 +32,6 @@ app.post("/chat", async (req: Request, res: Response) => {
   }
 });
 
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
   console.log(`Example app listening on port ${port}`);
 });
