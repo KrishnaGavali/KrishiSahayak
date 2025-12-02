@@ -43,10 +43,10 @@ const Chatbot = () => {
   });
 
   return (
-    <>
+    <div className="flex flex-col flex-1">
       <ChatBotConversation messages={messages} status={status} />
       <PromptInputBox sendMessage={sendMessage} status={status} />
-    </>
+    </div>
   );
 };
 

@@ -3,7 +3,7 @@ import React from "react";
 
 const page = () => {
   return (
-    <div className=" ">
+    <div className="flex-1 flex flex-col">
       <Chatbot />
     </div>
   );

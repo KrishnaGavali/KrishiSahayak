@@ -31,8 +31,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className=" p-5">
-      <body className={`${comfortaa.className} antialiased`}>
+    <html lang="en" className="px-5 py-2 min-h-screen flex flex-col">
+      <body
+        className={`${comfortaa.className} antialiased flex flex-col flex-1`}
+      >
         <Navbar />
         {children}
       </body>

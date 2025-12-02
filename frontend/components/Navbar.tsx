@@ -54,13 +54,13 @@ interface NavbarProps {
 
 const Navbar = ({
   logo = {
-    url: "http://localhost:3000",
+    url: "/",
     icon: <Palmtree className=" text-primary" />,
     alt: "KrishiSahayak",
     title: "KrishiSahayak",
   },
   menu = [
-    { title: "Home", url: "http://10.31.27.37:3000" },
+    { title: "Home", url: "/" },
     {
       title: "Features",
       url: "#",
@@ -75,7 +75,7 @@ const Navbar = ({
           title: "Farm Assistant Chatbot",
           description: "Get instant answers to your farming questions",
           icon: <BotIcon className="size-5 shrink-0" />,
-          url: "http://10.31.27.37:3000/chat",
+          url: "/chat",
         },
       ],
     },
@@ -122,7 +122,9 @@ const Navbar = ({
             {/* Logo */}
             <a href={logo.url} className="flex items-center gap-2">
               {logo.icon}
+              <p className=" font-bold">{logo.title}</p>
             </a>
+
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon">
