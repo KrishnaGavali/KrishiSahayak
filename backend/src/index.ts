@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import googleAI from "./services/googleAI";
 import cors from "cors";
 import { generatePrompt } from "./utils/PromptGenerator";
+import WeatherService from "./services/Weather";
 
 dotenv.config();
 
@@ -18,17 +19,32 @@ const aiService = new googleAI();
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");
-  console.log("Response sent");
 });
 
 app.post("/chat", async (req: Request, res: Response) => {
-  console.log("Received Body :", req.body);
-
   const messages = req.body.messages;
+  const locationInfo = req.body.locationDataActive || false;
+  const weatherInfo = req.body.weatherDataActive || false;
+  const location = req.body.location;
 
+  let weatherData = null;
+
+  // Fetch weather data first if needed
+  if (weatherInfo && location) {
+    const weatherService = new WeatherService(
+      location.latitude,
+      location.longitude
+    );
+
+    weatherData = await weatherService.getCurrentWeather();
+  }
+
+  // Generate prompt with all data available
   const systemPrompt = generatePrompt(
-    req.body.locationDataActive,
-    req.body.location
+    locationInfo,
+    weatherInfo,
+    location,
+    weatherData
   );
 
   try {

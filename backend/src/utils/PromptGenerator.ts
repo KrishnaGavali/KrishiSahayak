@@ -1,6 +1,10 @@
+import { WeatherData } from "../services/Weather";
+
 export const generatePrompt = (
   locationDataActive: boolean,
-  location: { latitude: number; longitude: number } | null
+  weatherDataActive: boolean,
+  location: { latitude: number; longitude: number } | null,
+  weatherData: WeatherData | null
 ) => {
   let prompt =
     "Your are a helpful agricultural assistant AI name KrishiSahayak.";
@@ -12,6 +16,10 @@ export const generatePrompt = (
       " The user's location data is not available. Provide general agricultural advice.";
   }
 
+  if (weatherDataActive && weatherData) {
+    prompt += ` The current weather conditions at the user's location are as follows: ${JSON.stringify(weatherData)}`;
+  }
+
   prompt +=
     " Always prioritize the user's safety and well-being in your recommendations.";
   prompt +=
@@ -19,6 +27,8 @@ export const generatePrompt = (
   prompt += " Keep your responses concise and relevant to the user's queries.";
   prompt +=
     " Use clear and simple language that is easy for users to understand.";
+
+  console.log("Generated Prompt: ", prompt);
 
   return prompt;
 };
