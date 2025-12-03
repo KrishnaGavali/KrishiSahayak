@@ -1,38 +1,13 @@
 "use client";
-import { BotIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
-import {
-  Message,
-  MessageContent,
-  MessageResponse,
-} from "../ai-elements/message";
-
-import {
-  PromptInput,
-  PromptInputActionAddAttachments,
-  PromptInputActionMenu,
-  PromptInputActionMenuContent,
-  PromptInputActionMenuTrigger,
-  PromptInputAttachment,
-  PromptInputAttachments,
-  PromptInputBody,
-  PromptInputButton,
-  type PromptInputMessage,
-  PromptInputSelect,
-  PromptInputSelectContent,
-  PromptInputSelectItem,
-  PromptInputSelectTrigger,
-  PromptInputSelectValue,
-  PromptInputSpeechButton,
-  PromptInputSubmit,
-  PromptInputTextarea,
-  PromptInputFooter,
-  PromptInputTools,
-} from "@/components/ai-elements/prompt-input";
 import ChatBotConversation from "./Conversation";
 import PromptInputBox from "./PromptInput";
+import {
+  useUserLocation,
+  requestUserLocation,
+} from "@/context/UserLocationContext";
 
 interface moreInfo {
   weather: boolean | null;
@@ -45,7 +20,20 @@ const Chatbot = () => {
     location: null,
   });
 
-  useEffect(() => {}, [moreInfo]);
+  const { location, setLocation } = useUserLocation();
+
+  useEffect(() => {
+    if (moreInfo.weather || moreInfo.location) {
+      if (location === null) {
+        requestUserLocation().then((pos) => {
+          console.log("Location obtained: ", pos);
+          setLocation(pos);
+        });
+      } else {
+        console.log("Using existing location: ", location);
+      }
+    }
+  }, [moreInfo]);
 
   useEffect(() => {
     console.log("More Info changed: ", moreInfo);
@@ -54,7 +42,6 @@ const Chatbot = () => {
   const { messages, sendMessage, status } = useChat({
     transport: new DefaultChatTransport({
       api: "http://192.168.0.107:5000/chat",
-      body: (message: string) => ({ prompt: message }),
     }),
   });
 

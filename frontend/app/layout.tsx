@@ -3,6 +3,7 @@ import { Comfortaa, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Chatbot from "@/components/Chatbot/Chatbot";
 import { Navbar } from "@/components/Navbar";
+import { UserLocationProvider } from "@/context/UserLocationContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,8 +36,10 @@ export default function RootLayout({
       <body
         className={`${comfortaa.className} antialiased flex flex-col flex-1`}
       >
-        <Navbar />
-        {children}
+        <UserLocationProvider>
+          <Navbar />
+          {children}
+        </UserLocationProvider>
       </body>
     </html>
   );
