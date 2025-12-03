@@ -9,26 +9,36 @@ import {
   PromptInputTextarea,
   PromptInputSubmit,
 } from "../../components/ai-elements/prompt-input";
+import {
+  useUserLocation,
+  requestUserLocation,
+} from "@/context/UserLocationContext";
 
 type PromptInputBoxProps = {
   sendMessage: ReturnType<typeof useChat>["sendMessage"];
   status: ChatStatus;
-  setMoreInfo?: React.Dispatch<
-    React.SetStateAction<{
-      weather: boolean | null;
-      location: boolean | null;
-    }>
-  >;
 };
 
-const PromptInputBox = ({
-  sendMessage,
-  status,
-  setMoreInfo,
-}: PromptInputBoxProps) => {
+type moreInfo = {
+  weather: boolean | null;
+  location: boolean | null;
+};
+
+const PromptInputBox = ({ sendMessage, status }: PromptInputBoxProps) => {
+  const { location, setLocation } = useUserLocation();
+
   const handleSubmit = (message: any) => {
     if (message.text.trim()) {
-      sendMessage({ text: message.text });
+      sendMessage(
+        { text: message.text },
+        {
+          body: {
+            locationDataActive: locationInfoActive,
+            weatherDataActive: weatherInfoActive,
+            location: location,
+          },
+        }
+      );
     }
   };
 
@@ -36,11 +46,15 @@ const PromptInputBox = ({
   const [locationInfoActive, setLocationInfoActive] = React.useState(false);
 
   useEffect(() => {
-    if (setMoreInfo) {
-      setMoreInfo({
-        weather: weatherInfoActive,
-        location: locationInfoActive,
-      });
+    if (weatherInfoActive || locationInfoActive) {
+      if (location === null) {
+        requestUserLocation().then((pos) => {
+          console.log("Location obtained: ", pos);
+          setLocation(pos);
+        });
+      } else {
+        console.log("Using existing location: ", location);
+      }
     }
   }, [weatherInfoActive, locationInfoActive]);
 

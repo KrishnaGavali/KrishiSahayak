@@ -20,6 +20,8 @@ class googleAI {
       throw new Error("Model not initialized");
     }
 
+    console.log("Chat prompt received: ", convertToModelMessages(prompt));
+
     const result = streamText({
       model: this.model,
       prompt: convertToModelMessages(prompt),
