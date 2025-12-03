@@ -4,6 +4,7 @@ import type { Request, Response } from "express";
 import dotenv from "dotenv";
 import googleAI from "./services/googleAI";
 import cors from "cors";
+import { generatePrompt } from "./utils/PromptGenerator";
 
 dotenv.config();
 
@@ -25,8 +26,13 @@ app.post("/chat", async (req: Request, res: Response) => {
 
   const messages = req.body.messages;
 
+  const systemPrompt = generatePrompt(
+    req.body.locationDataActive,
+    req.body.location
+  );
+
   try {
-    await aiService.chat(messages, res);
+    await aiService.chat(messages, res, systemPrompt);
   } catch (error) {
     res.status(500).json({ error: "Failed to process chat request" });
   }
