@@ -184,7 +184,7 @@ const dummyCropData: CropRecommendation = {
 };
 
 interface RecommendationSectionProps {
-  weatherData?: any;
+  recommendationData?: CropRecommendation | null;
 }
 
 const getSeverityColor = (severity: string) => {
@@ -217,8 +217,10 @@ const getTrendIcon = (trend: string) => {
   }
 };
 
-const RecommendationSection = ({ weatherData }: RecommendationSectionProps) => {
-  const crop = dummyCropData;
+const RecommendationSection = ({
+  recommendationData,
+}: RecommendationSectionProps) => {
+  const crop = recommendationData || dummyCropData;
 
   return (
     <div className="space-y-6">

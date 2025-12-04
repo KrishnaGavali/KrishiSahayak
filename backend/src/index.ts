@@ -4,7 +4,10 @@ import type { Request, Response } from "express";
 import dotenv from "dotenv";
 import googleAI from "./services/googleAI";
 import cors from "cors";
-import { generatePrompt } from "./utils/PromptGenerator";
+import {
+  generatePrompt,
+  generateRecommendationPrompt,
+} from "./utils/PromptGenerator";
 import WeatherService from "./services/Weather";
 
 dotenv.config();
@@ -31,13 +34,68 @@ app.post("/weather", async (req: Request, res: Response) => {
       });
     }
 
-    const weatherService = new WeatherService(latitude, longitude);
+    const weatherService = new WeatherService(latitude, longitude, 3);
     const weatherData = await weatherService.getCurrentWeather();
 
     res.json({ success: true, weatherData });
   } catch (error) {
     const errorMessage =
       error instanceof Error ? error.message : "Failed to fetch weather";
+    res.status(500).json({ error: errorMessage });
+  }
+});
+
+app.post("/recommendation", async (req: Request, res: Response) => {
+  try {
+    const messages: string = req.body.messages;
+    const locationInfo = req.body.locationDataActive || false;
+    const weatherInfo = req.body.weatherDataActive || false;
+    const location = req.body.location;
+
+    // Validate required fields
+    if (!messages || !Array.isArray(messages)) {
+      return res.status(400).json({
+        error: "Missing required parameter: messages array",
+      });
+    }
+
+    let weatherData = null;
+
+    // Fetch weather data first if needed
+    if (weatherInfo && location) {
+      if (location.latitude === undefined || location.longitude === undefined) {
+        return res.status(400).json({
+          error: "Invalid location data: latitude and longitude required",
+        });
+      }
+
+      try {
+        const weatherService = new WeatherService(
+          location.latitude,
+          location.longitude,
+          3
+        );
+        weatherData = await weatherService.getCurrentWeather();
+      } catch (weatherError) {
+        console.error("Weather fetch error:", weatherError);
+        // Continue without weather data if fetch fails
+      }
+    }
+
+    // Generate system prompt with available data
+    const systemPrompt = generateRecommendationPrompt(
+      locationInfo ? location : null,
+      weatherData
+    );
+
+    // Call AI service to generate recommendation
+    await aiService.recomend(messages, res, systemPrompt);
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error
+        ? error.message
+        : "Failed to process recommendation";
+    console.error("Recommendation route error:", error);
     res.status(500).json({ error: errorMessage });
   }
 });
@@ -54,7 +112,8 @@ app.post("/chat", async (req: Request, res: Response) => {
   if (weatherInfo && location) {
     const weatherService = new WeatherService(
       location.latitude,
-      location.longitude
+      location.longitude,
+      3
     );
 
     weatherData = await weatherService.getCurrentWeather();

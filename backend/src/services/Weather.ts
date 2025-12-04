@@ -35,9 +35,9 @@ class WeatherService {
   private fetchUrl: string;
   private weatherData: WeatherData | null = null;
 
-  constructor(latitude: number, longitude: number) {
+  constructor(latitude: number, longitude: number, days: number) {
     this.baseUrl = process.env.WEATHER_BASE_URL || "";
-    this.fetchUrl = `${this.baseUrl}&q=${latitude},${longitude}&days=3&aqi=no&alerts=no`;
+    this.fetchUrl = `${this.baseUrl}&q=${latitude},${longitude}&days=${days}&aqi=no&alerts=no`;
   }
 
   private async fetchWeatherData() {
