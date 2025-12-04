@@ -21,6 +21,27 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");
 });
 
+app.post("/weather", async (req: Request, res: Response) => {
+  try {
+    const { latitude, longitude } = req.body;
+
+    if (latitude === undefined || longitude === undefined) {
+      return res.status(400).json({
+        error: "Missing required parameters: latitude and longitude",
+      });
+    }
+
+    const weatherService = new WeatherService(latitude, longitude);
+    const weatherData = await weatherService.getCurrentWeather();
+
+    res.json({ success: true, weatherData });
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Failed to fetch weather";
+    res.status(500).json({ error: errorMessage });
+  }
+});
+
 app.post("/chat", async (req: Request, res: Response) => {
   const messages = req.body.messages;
   const locationInfo = req.body.locationDataActive || false;
