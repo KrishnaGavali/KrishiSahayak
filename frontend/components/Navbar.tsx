@@ -69,7 +69,7 @@ const Navbar = ({
           title: "Crop Recommendations",
           description: "AI-powered crop suggestions based on your conditions",
           icon: <Trees className="size-5 shrink-0" />,
-          url: "#",
+          url: "/recomendation",
         },
         {
           title: "Farm Assistant Chatbot",
@@ -86,7 +86,7 @@ const Navbar = ({
   },
 }: NavbarProps) => {
   return (
-    <section className="fixed w-full bg-background z-50 border-b py-2 px-4">
+    <section className="fixed w-full bg-background z-50 border-b py-2 px-4 h-14">
       <div className="container mx-auto">
         {/* Desktop Menu */}
         <nav className="hidden items-center justify-between lg:flex">
@@ -105,14 +105,6 @@ const Navbar = ({
                 </NavigationMenuList>
               </NavigationMenu>
             </div>
-          </div>
-          <div className="flex gap-2">
-            <Button asChild variant="outline" size="sm">
-              <a href={auth.login.url}>{auth.login.title}</a>
-            </Button>
-            <Button asChild size="sm">
-              <a href={auth.signup.url}>{auth.signup.title}</a>
-            </Button>
           </div>
         </nav>
 

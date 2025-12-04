@@ -19,10 +19,6 @@ type PromptInputBoxProps = {
   status: ChatStatus;
 };
 
-type moreInfo = {
-  weather: boolean | null;
-  location: boolean | null;
-};
 
 const PromptInputBox = ({ sendMessage, status }: PromptInputBoxProps) => {
   const { location, setLocation } = useUserLocation();
@@ -63,22 +59,20 @@ const PromptInputBox = ({ sendMessage, status }: PromptInputBoxProps) => {
       <div className="flex flex-wrap gap-2 md:gap-3 mb-2">
         <button
           onClick={() => setWeatherInfoActive(!weatherInfoActive)}
-          className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 border rounded-lg transition-all duration-200 text-xs md:text-sm font-medium shadow-sm hover:shadow-md group ${
-            weatherInfoActive
-              ? "bg-primary text-primary-foreground border-primary shadow-md"
-              : "bg-background text-foreground border-border hover:bg-accent hover:border-primary hover:text-primary"
-          }`}
+          className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 border rounded-lg transition-all duration-200 text-xs md:text-sm font-medium shadow-sm hover:shadow-md group ${weatherInfoActive
+            ? "bg-primary text-primary-foreground border-primary shadow-md"
+            : "bg-background text-foreground border-border hover:bg-accent hover:border-primary hover:text-primary"
+            }`}
         >
           <Cloud className="size-3.5 md:size-4 group-hover:scale-110 transition-transform" />
           <span className="hidden sm:inline">Weather</span>
         </button>
         <button
           onClick={() => setLocationInfoActive(!locationInfoActive)}
-          className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 border rounded-lg transition-all duration-200 text-xs md:text-sm font-medium shadow-sm hover:shadow-md group ${
-            locationInfoActive
-              ? "bg-primary text-primary-foreground border-primary shadow-md"
-              : "bg-background text-foreground border-border hover:bg-accent hover:border-primary hover:text-primary"
-          }`}
+          className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 border rounded-lg transition-all duration-200 text-xs md:text-sm font-medium shadow-sm hover:shadow-md group ${locationInfoActive
+            ? "bg-primary text-primary-foreground border-primary shadow-md"
+            : "bg-background text-foreground border-border hover:bg-accent hover:border-primary hover:text-primary"
+            }`}
         >
           <MapPin className="size-3.5 md:size-4 group-hover:scale-110 transition-transform" />
           <span className="hidden sm:inline">Location</span>

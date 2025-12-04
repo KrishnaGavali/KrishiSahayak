@@ -1,4 +1,4 @@
-# KrishiSahayak
+KrishiSahayak
 
 ## 🌾 AI Farm Helper
 

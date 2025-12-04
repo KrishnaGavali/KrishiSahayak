@@ -4,20 +4,11 @@ import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import ChatBotConversation from "./Conversation";
 import PromptInputBox from "./PromptInput";
-import {
-  useUserLocation,
-  requestUserLocation,
-} from "@/context/UserLocationContext";
-
-interface moreInfo {
-  weather: boolean | null;
-  location: boolean | null;
-}
 
 const Chatbot = () => {
   const { messages, sendMessage, status } = useChat({
     transport: new DefaultChatTransport({
-      api: "http://192.168.0.107:5000/chat",
+      api: "http://10.239.105.37:5000/chat",
     }),
   });
 
